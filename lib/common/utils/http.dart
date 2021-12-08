@@ -75,23 +75,12 @@ class HttpUtil {
         // 这样请求将被中止并触发异常，上层catchError会被调用。
       },
       onResponse: (response, handler) {
-        print("onResponse:$response");
-        Map data = response.data;
-        print("data:$data");
-        int code = data["code"];
-        String message =  data["message"];
-        print("code:$code");
-        if(code == 100) {
-          // Do something with response data
-          return handler.next(response); // continue
-        } else {
-          EasyLoading.showError('未知错误:$message');
-        }
+        // Do something with response data
+        return handler.next(response); // continue
         // 如果你想终止请求并触发一个错误,你可以 reject 一个`DioError`对象,如`handler.reject(error)`，
         // 这样请求将被中止并触发异常，上层catchError会被调用。
       },
       onError: (DioError e, handler) {
-        print("onError:$e");
         // Do something with response error
         Loading.dismiss();
         ErrorEntity eInfo = createErrorEntity(e);
@@ -126,7 +115,6 @@ class HttpUtil {
 
   // 错误信息
   ErrorEntity createErrorEntity(DioError error) {
-    print('error:'+error.toString());
     switch (error.type) {
       case DioErrorType.cancel:
         return ErrorEntity(code: -1, message: "请求取消");
@@ -267,8 +255,7 @@ class HttpUtil {
       options: requestOptions,
       cancelToken: cancelToken,
     );
-    print("post:$response");
-    return response;
+    return response.data;
   }
 
   /// restful put 操作

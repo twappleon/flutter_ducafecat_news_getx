@@ -15,7 +15,7 @@ class SignInController extends GetxController {
   SignInController();
 
   // email的控制器
-  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   // 密码的控制器
   final TextEditingController passController = TextEditingController();
 
@@ -44,19 +44,13 @@ class SignInController extends GetxController {
     // }
 
     UserLoginRequestEntity params = UserLoginRequestEntity(
-        phoneNumber: phoneNumberController.value.text,
-        password: passController.value.text//duSHA256(passController.value.text),
+      email: emailController.value.text,
+      password: duSHA256(passController.value.text),
     );
 
     UserLoginResponseEntity userProfile = await UserAPI.login(
       params: params,
     );
-
-    print("userProfile.accessToken:$userProfile.accessToken");
-    String? accessToken = userProfile.accessToken;
-    print("accessToken:$accessToken");
-    UserStore.to.setToken(accessToken!);
-    print("userProfile:$userProfile");
     UserStore.to.saveProfile(userProfile);
 
     Get.offAndToNamed(AppRoutes.Application);
@@ -69,7 +63,7 @@ class SignInController extends GetxController {
 
   @override
   void dispose() {
-    phoneNumberController.dispose();
+    emailController.dispose();
     passController.dispose();
     super.dispose();
   }

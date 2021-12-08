@@ -1,21 +1,21 @@
 /// 新闻分类 response
 class CategoryResponseEntity {
-  String requirementId;
-  String requirementName;
+  String code;
+  String title;
 
   CategoryResponseEntity({
-    required this.requirementId,
-    required this.requirementName,
+    required this.code,
+    required this.title,
   });
 
   factory CategoryResponseEntity.fromJson(Map<String, dynamic> json) =>
       CategoryResponseEntity(
-        requirementId: json["requirementId"],
-        requirementName: json["requirementName"],
+        code: json["code"],
+        title: json["title"],
       );
 
   Map<String, dynamic> toJson() => {
-        "requirementId": requirementId,
-        "requirementName": requirementName,
+        "code": code,
+        "title": title,
       };
 }
