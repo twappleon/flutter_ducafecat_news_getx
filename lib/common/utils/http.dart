@@ -66,6 +66,9 @@ class HttpUtil {
     // 添加拦截器
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
+        Map data = options.data;
+        print("onRequest:$data");
+
         // Do something before request is sent
         return handler.next(options); //continue
         // 如果你想完成请求并返回一些自定义数据，你可以resolve一个Response对象 `handler.resolve(response)`。
@@ -85,7 +88,8 @@ class HttpUtil {
           // Do something with response data
           return handler.next(response); // continue
         } else {
-          EasyLoading.showError('未知错误:$message');
+          String codeString = code.toString();
+          EasyLoading.showError('warning'.tr+codeString.tr);
         }
         // 如果你想终止请求并触发一个错误,你可以 reject 一个`DioError`对象,如`handler.reject(error)`，
         // 这样请求将被中止并触发异常，上层catchError会被调用。
@@ -267,7 +271,10 @@ class HttpUtil {
       options: requestOptions,
       cancelToken: cancelToken,
     );
-    return response.data;
+    Type type = response.runtimeType;
+    print("post type:$type");
+    print("post data:$response");
+    return response;
   }
 
   /// restful put 操作

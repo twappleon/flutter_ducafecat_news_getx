@@ -45,7 +45,7 @@ class SignInController extends GetxController {
 
     UserLoginRequestEntity params = UserLoginRequestEntity(
       phoneNumber: phoneNumberController.value.text,
-      password: duSHA256(passController.value.text),
+      password: passController.value.text//duSHA256(passController.value.text),
     );
 
     UserLoginResponseEntity userProfile = await UserAPI.login(
