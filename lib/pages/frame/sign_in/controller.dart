@@ -15,7 +15,7 @@ class SignInController extends GetxController {
   SignInController();
 
   // email的控制器
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
   // 密码的控制器
   final TextEditingController passController = TextEditingController();
 
@@ -44,7 +44,7 @@ class SignInController extends GetxController {
     // }
 
     UserLoginRequestEntity params = UserLoginRequestEntity(
-      email: emailController.value.text,
+      phoneNumber: phoneNumberController.value.text,
       password: duSHA256(passController.value.text),
     );
 
@@ -63,7 +63,7 @@ class SignInController extends GetxController {
 
   @override
   void dispose() {
-    emailController.dispose();
+    phoneNumberController.dispose();
     passController.dispose();
     super.dispose();
   }
