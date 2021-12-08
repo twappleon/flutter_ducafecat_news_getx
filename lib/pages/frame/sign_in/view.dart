@@ -89,9 +89,9 @@ class SignInPage extends GetView<SignInController> {
         children: [
           // email input
           inputTextEdit(
-            controller: controller.emailController,
-            keyboardType: TextInputType.emailAddress,
-            hintText: "Email",
+            controller: controller.phoneNumberController,
+            keyboardType: TextInputType.phone,
+            hintText: "Phone Number",
             marginTop: 0,
             // autofocus: true,
           ),

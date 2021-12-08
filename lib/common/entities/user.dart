@@ -1,4 +1,9 @@
+import 'package:lombok/lombok.dart';
+import 'package:mobx/mobx.dart';
+
+
 // 注册请求
+@data
 class UserRegisterRequestEntity {
   String email;
   String password;
@@ -22,49 +27,45 @@ class UserRegisterRequestEntity {
 
 // 登录请求
 class UserLoginRequestEntity {
-  String email;
+  String phoneNumber;
   String password;
 
   UserLoginRequestEntity({
-    required this.email,
+    required this.phoneNumber,
     required this.password,
   });
 
   factory UserLoginRequestEntity.fromJson(Map<String, dynamic> json) =>
       UserLoginRequestEntity(
-        email: json["email"],
+        phoneNumber: json["phoneNumber"],
         password: json["password"],
       );
 
   Map<String, dynamic> toJson() => {
-        "email": email,
+        "phoneNumber": phoneNumber,
         "password": password,
       };
 }
 
 // 登录返回
-class UserLoginResponseEntity {
+@data
+class UserLoginResponseEntity{
   String? accessToken;
-  String? displayName;
-  List<String>? channels;
+  String? username;
 
   UserLoginResponseEntity({
     this.accessToken,
-    this.displayName,
-    this.channels,
+    this.username,
   });
 
   factory UserLoginResponseEntity.fromJson(Map<String, dynamic> json) =>
       UserLoginResponseEntity(
-        accessToken: json["access_token"],
-        displayName: json["display_name"],
-        channels: List<String>.from(json["channels"].map((x) => x)),
+        accessToken: json["accessToken"],
+        username: json["username"]
       );
 
   Map<String, dynamic> toJson() => {
-        "access_token": accessToken,
-        "display_name": displayName,
-        "channels":
-            channels == null ? [] : List<dynamic>.from(channels!.map((x) => x)),
+        "accessToken": accessToken,
+        "username": username,
       };
 }

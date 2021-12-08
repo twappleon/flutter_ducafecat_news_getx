@@ -24,9 +24,9 @@ class NewsCategoriesWidget extends GetView<MainController> {
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: GestureDetector(
                       child: Text(
-                        item.title,
+                        item.requirementName,
                         style: TextStyle(
-                          color: controller.state.selCategoryCode == item.code
+                          color: controller.state.selCategoryCode == item.requirementId
                               ? AppColors.secondaryElementText
                               : AppColors.primaryText,
                           fontSize: 18.sp,
@@ -36,7 +36,7 @@ class NewsCategoriesWidget extends GetView<MainController> {
                       ),
                       onTap: () {
                         // 拉取数据
-                        controller.asyncLoadNewsData(item.code);
+                        controller.asyncLoadNewsData(item.requirementId);
                       },
                     ),
                   );

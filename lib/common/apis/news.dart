@@ -40,14 +40,24 @@ class NewsAPI {
   static Future<List<CategoryResponseEntity>> categories({
     bool cacheDisk = false,
   }) async {
-    var response = await HttpUtil().get(
-      '/categories',
-      cacheDisk: cacheDisk,
+    var response = await HttpUtil().post(
+      '/employer/requirement/list',
+      data: Map(),
     );
-    return response
+    Map result = response.data;
+    Map<String,dynamic> data = result["data"];
+    print("categories data:$data");
+
+
+
+    return data["records"]
         .map<CategoryResponseEntity>(
             (item) => CategoryResponseEntity.fromJson(item))
         .toList();
+    //print("resp:$resp");
+    //return CategoryResponseEntity.fromJson(data);
+
+
   }
 
   /// 频道

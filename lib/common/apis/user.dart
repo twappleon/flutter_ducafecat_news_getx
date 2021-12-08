@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter_ducafecat_news_getx/common/entities/entities.dart';
 import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
 
@@ -7,11 +9,18 @@ class UserAPI {
   static Future<UserLoginResponseEntity> login({
     UserLoginRequestEntity? params,
   }) async {
-    var response = await HttpUtil().post(
-      '/user/login',
+    Response response = await HttpUtil().post(
+      '/employee/auth/login',
       data: params?.toJson(),
     );
-    return UserLoginResponseEntity.fromJson(response);
+
+    Type type = response.data.runtimeType;
+    print("type:$type");
+    print("response:$response");
+    Map dd = response.data;
+    Map<String,dynamic> ddd = dd['data'];
+    print("dd:$ddd");
+    return UserLoginResponseEntity.fromJson(ddd);
   }
 
   /// 注册
@@ -19,7 +28,7 @@ class UserAPI {
     UserRegisterRequestEntity? params,
   }) async {
     var response = await HttpUtil().post(
-      '/user/register',
+      '/employee/auth/register',
       data: params?.toJson(),
     );
     return UserRegisterRequestEntity.fromJson(response);
@@ -28,7 +37,7 @@ class UserAPI {
   /// Profile
   static Future<UserLoginResponseEntity> profile() async {
     var response = await HttpUtil().post(
-      '/user/profile',
+      '/employee/auth/profile',
     );
     return UserLoginResponseEntity.fromJson(response);
   }
@@ -36,7 +45,7 @@ class UserAPI {
   /// Logout
   static Future logout() async {
     return await HttpUtil().post(
-      '/user/logout',
+      '/employee/auth/logout',
     );
   }
 }
