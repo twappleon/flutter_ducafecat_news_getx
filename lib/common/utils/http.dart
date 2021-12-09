@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:flutter_ducafecat_news_getx/common/routes/names.dart';
 import 'package:flutter_ducafecat_news_getx/common/store/store.dart';
 import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
 import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
@@ -90,6 +91,16 @@ class HttpUtil {
         } else {
           String codeString = code.toString();
           EasyLoading.showError('warning'.tr+codeString.tr);
+          switch(code) {
+            case 202:{
+              Get.offAndToNamed(AppRoutes.SIGN_IN);
+              break;
+            }
+            default:{
+
+            }
+          }
+
         }
         // 如果你想终止请求并触发一个错误,你可以 reject 一个`DioError`对象,如`handler.reject(error)`，
         // 这样请求将被中止并触发异常，上层catchError会被调用。
@@ -203,7 +214,9 @@ class HttpUtil {
   /// 读取本地配置
   Map<String, dynamic>? getAuthorizationHeader() {
     var headers = <String, dynamic>{};
+    print("UserStore.to.hasToken:"+UserStore.to.hasToken.toString());
     if (Get.isRegistered<UserStore>() && UserStore.to.hasToken == true) {
+      print("Bearer ${UserStore.to.token}");
       headers['Authorization'] = 'Bearer ${UserStore.to.token}';
     }
     return headers;
@@ -241,11 +254,11 @@ class HttpUtil {
     if (authorization != null) {
       requestOptions.headers!.addAll(authorization);
     }
-
+    print("path:$path");
     var response = await dio.get(
       path,
       queryParameters: queryParameters,
-      options: options,
+      options: requestOptions,
       cancelToken: cancelToken,
     );
     return response.data;

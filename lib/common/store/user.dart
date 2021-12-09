@@ -32,6 +32,7 @@ class UserStore extends GetxController {
 
   // 保存 token
   Future<void> setToken(String value) async {
+    print("set token: " + value);
     await StorageService.to.setString(STORAGE_USER_TOKEN_KEY, value);
     token = value;
   }

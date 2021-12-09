@@ -52,7 +52,9 @@ class SignInController extends GetxController {
       params: params,
     );
     UserStore.to.saveProfile(userProfile);
-
+    String? accessToken = userProfile.accessToken;
+    print("accessToken:$accessToken");
+    UserStore.to.setToken(accessToken!);
     Get.offAndToNamed(AppRoutes.Application);
   }
 

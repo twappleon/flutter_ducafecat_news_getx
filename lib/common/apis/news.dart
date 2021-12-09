@@ -40,7 +40,12 @@ class NewsAPI {
   static Future<List<CategoryResponseEntity>> categories({
     bool cacheDisk = false,
   }) async {
-    var response = await HttpUtil().post(
+    var response = await HttpUtil().get(
+      '/employer/requirementType/list',
+    );
+
+
+    response = await HttpUtil().post(
       '/employer/requirement/list',
       data: Map(),
     );
